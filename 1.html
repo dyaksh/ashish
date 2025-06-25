@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Portfolio</title>
+<style>
+  .portfolio-item { display: inline-block; margin: 10px; }
+  .portfolio-item img { width: 150px; height: auto; }
+</style>
+</head>
+<body>
+
+<<input type="file" id="folderInput" webkitdirectory directory multiple />
+<div id="output"></div>
+
+<script>
+  document.getElementById('folderInput').addEventListener('change', (event) => {
+    const files = event.target.files;
+    const folders = new Set();
+    for (const file of files) {
+      const pathParts = file.webkitRelativePath.split('/');
+      if (pathParts.length > 1) {
+        folders.add(pathParts[0]); // first folder in path
+      }
+    }
+    document.getElementById('output').innerHTML = '<h3>Folders:</h3><ul>' + 
+      [...folders].map(f => `<li>${f}</li>`).join('') + '</ul>';
+  });
+</script>
+
+
+</body>
+</html>
